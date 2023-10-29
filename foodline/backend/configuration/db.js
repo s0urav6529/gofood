@@ -1,12 +1,8 @@
 const mongoose = require("mongoose");
 
-// This path is from mongo atlas
-const mongoURI =
-  "mongodb+srv://Foodline:12345@cluster0.szpnieh.mongodb.net/?retryWrites=true&w=majority";
-
 const databaseConnection = async () => {
   mongoose
-    .connect(mongoURI, {
+    .connect(process.env.MONGOURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
