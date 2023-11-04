@@ -1,19 +1,18 @@
+// external module
 const express = require("express");
 const userRoute = express.Router();
-const userModel = require("../models/User");
 
-userRoute.route("/register").post(async(req,res)=>{
-    try {
-        await userModel.create({
-            name:"sourav",
-            location:"hjsdfsd",
-            email:"sourav@gmail.com",
-            password:"12345",
-        })
-        res.json({success:true});
-    } catch (error) {
-        res.json({success:false});
-    }
-});
+
+//internal module
+const {
+  validate,
+  createUserValidationRules,
+  loginValidationRules,
+} = require("../middleware/inputValidator");
+const { createUser, loginUser } = require("../controller/userController");
+
+//user route
+userRoute.route("/createuser").post(createUserValidationRules, validate, createUser);
+userRoute.route("/loginuser").post(loginValidationRules,validate, loginUser);
 
 module.exports = userRoute;
