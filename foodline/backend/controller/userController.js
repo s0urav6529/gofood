@@ -1,5 +1,6 @@
 //external module
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 //internal module
 const userModel = require("../models/userModel");
@@ -31,7 +32,15 @@ const loginUser = async (req, res) => {
     } else if (!(await bcrypt.compare(password, userData.password))) {
       res.status(400).json({ success: false });
     } else {
-      res.json({ success: true });
+      const userObject = {
+        user: {
+          id: userData.id,
+        },
+      };
+      
+      const authToken = jwt.sign(userObject, process.env.JWT_ACCESS_TOKEN);
+
+      res.json({ success: true, authToken: authToken });
     }
   } catch (error) {
     res.status(400).json({ success: false });
