@@ -32,12 +32,14 @@ const loginUser = async (req, res) => {
     } else if (!(await bcrypt.compare(password, userData.password))) {
       res.status(400).json({ success: false });
     } else {
+
+      // create payload for jwt
       const userObject = {
         user: {
           id: userData.id,
         },
       };
-      
+
       const authToken = jwt.sign(userObject, process.env.JWT_ACCESS_TOKEN);
 
       res.json({ success: true, authToken: authToken });

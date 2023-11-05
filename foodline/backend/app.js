@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 //external module
 const databaseConnection = require("./configuration/db");
 const userRoute = require("./routes/userRoute");
+const displayFoodRoute = require("./routes/displayFoodRoute");
 databaseConnection();
 
 app.use((req, res, next) => {
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //use user Route
 app.use("/api", userRoute);
+app.use("/api", displayFoodRoute);
 
 // server start
 app.listen(process.env.PORT, () => {
