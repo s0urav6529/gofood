@@ -1,7 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    localStorage.removeItem("authToken");
+    navigate("/login");
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -21,17 +28,54 @@ export default function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav">
-              <NavLink className="nav-link " aria-current="page" to="/">
-                Home
-              </NavLink>
-              <NavLink className="nav-link" to="/login">
-                Login
-              </NavLink>
-              <NavLink className="nav-link" to="/signup">
-                Signup
-              </NavLink>
-            </div>
+            <ul className="navbar-nav me-auto mb-2">
+              <li>
+                <NavLink
+                  className="nav-link active fs-5"
+                  aria-current="page"
+                  to="/"
+                >
+                  Home
+                </NavLink>
+              </li>
+              {/* visualize user order page when a user is logged in */}
+              {localStorage.getItem("authToken") ? (
+                <li>
+                  <NavLink
+                    className="nav-link active fs-5"
+                    aria-current="page"
+                    to="/"
+                  >
+                    My Orders
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
+            </ul>
+            {!localStorage.getItem("authToken") ? (
+              <div className="d-flex">
+                <NavLink className="btn bg-white text-success mx-1" to="/login">
+                  Login
+                </NavLink>
+                <NavLink
+                  className="btn bg-white text-success mx-1"
+                  to="/signup"
+                >
+                  Signup
+                </NavLink>
+              </div>
+            ) : (
+              <div>
+                <div className="btn bg-white text-success mx-1">My Cart</div>
+                <div
+                  className="btn bg-white text-danger mx-1"
+                  onClick={handleLogout}
+                >
+                  LogOut
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </nav>
