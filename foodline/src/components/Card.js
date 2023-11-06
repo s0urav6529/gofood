@@ -3,7 +3,6 @@ import React from "react";
 export default function Card(props) {
 
   const priceOption = Object.keys(props.options);
-  console.log(typeof props.options)
 
   return (
     <div>
@@ -12,7 +11,7 @@ export default function Card(props) {
           className="card mt-3"
           style={{ width: "18rem", maxHeight: "360px" }}
         >
-          <img src="https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" className="card-img-top" alt="..." />
+          <img src={props.imgSrc}/>
           <div className="card-body">
             <h5 className="card-title">{props.foodName}</h5>
             <p className="card-text">This is the description.</p>

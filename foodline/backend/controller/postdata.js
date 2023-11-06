@@ -6,17 +6,19 @@ const foodItemsModel = require("../models/foodItemsModel")
 
 postdata.route("/postData").post(async (req, res) => {
 
+    const dataObject = {
+      categoryName:req.body.categoryName,
+      name:req.body.name,
+      img:req.body.img,
+      option:req.body.option,
+      description:req.body.description
+    };
+
     try {
-      await foodItemsModel.create({
-        categoryName:req.body.categoryName,
-        name:req.body.name,
-        img:req.body.img,
-        option:req.body.option,
-        description:req.body.description
-      });
-      res.json({ success: true });
+      await foodItemsModel.create(dataObject);
+      res.status(200).json({ success: true });
     } catch (error) {
-      res.json({ success: false });
+      res.status(400).json({ success: false });
     }
 })
 
