@@ -17,16 +17,11 @@ export default function Home() {
           "Content-Type": "application/json",
         },
       });
-      if (!response.success) {
-        throw new Error("Network response was not ok");
-      }
 
       const json = await response.json();
 
       setFoodItem(json[0]);
       setFoodCat(json[1]);
-      console.log("hello");
-      console.log(json[1]);
     } catch (error) {
       setError(error.message);
     }
@@ -51,7 +46,7 @@ export default function Home() {
 
         foodCat.length > 0 ? foodCat.map((data)=>{
           return (
-            <div>
+            <div className="row mb-3">
               <div key={data._id} className="fs-3 m-3">
                 {data.categoryName}
               </div>
@@ -60,8 +55,11 @@ export default function Home() {
                 foodItem.length > 0 ? foodItem.filter((items) => items.categoryName === data.categoryName)
                 .map(filterItems=>{
                   return(
-                    <div key={filterItems._id}>
-                      <Card/>
+                    <div key={filterItems._id} className="col-12 col-md-6 col-lg-3">
+                      <Card foodName = {filterItems.name}
+                      imgSrc = {filterItems.img} 
+                      options = {filterItems.options} 
+                      description = {filterItems.description} />
                     </div>
                   )
                 }) : <div>No Such Item Found</div>
@@ -71,7 +69,6 @@ export default function Home() {
         }):""
 
       }
-      <Card/>
     </div>
 
     <div>

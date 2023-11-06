@@ -3,7 +3,7 @@ const displayFood = async (req, res) => {
     res.send([global.foodItems, global.foodCategorys]);
 
   } catch (error) {
-    res.send({success:false});
+    res.send("Server Error");
   }
 };
 

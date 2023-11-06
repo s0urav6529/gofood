@@ -7,10 +7,10 @@ const foodItemsModel = require("../models/foodItemsModel");
 const fetchFoodItems = async (req, res, next) => {
   try {
     
-    const fetchData = mongoose.connection.db.collection("foodItems");
+    const fetchData = mongoose.connection.db.collection("fooditems");
     const data = await fetchData.find({}).toArray();
 
-    const foodCategory = mongoose.connection.db.collection("foodCategorys");
+    const foodCategory = mongoose.connection.db.collection("foodcategories");
     const catData = await foodCategory.find({}).toArray();
 
     global.foodItems = data;
