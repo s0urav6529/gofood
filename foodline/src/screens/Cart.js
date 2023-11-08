@@ -7,12 +7,14 @@ export default function Cart() {
   let data = useCart();
   let dispatch = useDispatchCart();
 
-  console.log(data);
-
   if (data.length === 0) {
-    <div>
-      <div className="m-5 w-100 text-center fs-3">The Cart is Empty</div>
-    </div>;
+    return (
+      <div>
+        <div className="m-5 w-100 text-center text-red fs-3">
+          The Cart is Empty!
+        </div>
+      </div>
+    );
   }
 
   let totalPrice = data.reduce((total, food) => total + food.price, 0);
@@ -32,7 +34,7 @@ export default function Cart() {
             </tr>
           </thead>
           <tbody>
-            {data.map((food, index) => {
+            {data.map((food, index) => (
               <tr>
                 <th scope="row">{index + 1}</th>
                 <td>{food.name}</td>
@@ -41,11 +43,17 @@ export default function Cart() {
                 <td>{food.price}</td>
                 <td>
                   <button type="button" className="btn p-0">
-                    <img src={trash} alt="delete" />
+                    <img
+                      src={trash}
+                      alt="delete"
+                      onClick={() => {
+                        dispatch({ type: "REMOVE", index: index });
+                      }}
+                    />
                   </button>
                 </td>
-              </tr>;
-            })}
+              </tr>
+            ))}
           </tbody>
         </table>
         <div>{<h1 className="fs-2">Total Price: ৳{totalPrice}/-</h1>}</div>

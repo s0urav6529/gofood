@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Badge from "react-bootstrap/Badge";
 import Modal from "../Modal";
+import Cart from "../screens/Cart";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -81,7 +82,11 @@ export default function Navbar() {
                     2
                   </Badge>
                 </div>
-                {cartView ? <Modal onClose={()=>setCartView(false)}></Modal> : null}
+                {cartView ? (
+                  <Modal onClose={() => setCartView(false)}>
+                    <Cart />
+                  </Modal>
+                ) : null}
                 <div
                   className="btn bg-white text-danger mx-1"
                   onClick={handleLogout}

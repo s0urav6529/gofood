@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useCart, useDispatchCart } from "./contextReducer";
+import { useDispatchCart } from "./contextReducer";
 
 export default function Card(props) {
   const priceOption = Object.keys(props.foodItems.option);
@@ -13,8 +13,6 @@ export default function Card(props) {
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState("");
 
-  let data = useCart();
-
   const handleAddToCart = async () => {
     await dispatch({
       type: "ADD",
@@ -25,7 +23,6 @@ export default function Card(props) {
       size: size,
       img: img,
     });
-    //console.log(data);
   };
 
   let finalPrice = qty * parseInt(props.foodItems.option[size]);
@@ -37,7 +34,7 @@ export default function Card(props) {
   return (
     <div>
       <div className="card mt-3" style={{ width: "18rem", maxHeight: "360px" }}>
-        <img src={img} style={{ height: "120px" }} />
+        <img src={img} alt="" style={{ height: "120px" }} />
         <div className="card-body">
           <h5 className="card-title">{foodName}</h5>
           <p className="card-text">This is the description.</p>
