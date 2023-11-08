@@ -47,17 +47,18 @@ export default function Card(props) {
         });
         return;
       }
+    } else {
+      await dispatch({
+        type: "ADD",
+        id: id,
+        name: foodName,
+        price: finalPrice,
+        qty: qty,
+        size: size,
+        img: img,
+      });
+      return;
     }
-    await dispatch({
-      type: "ADD",
-      id: id,
-      name: foodName,
-      price: finalPrice,
-      qty: qty,
-      size: size,
-      img: img,
-    });
-    return;
   };
 
   let finalPrice = qty * parseInt(props.foodItems.option[size]);

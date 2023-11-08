@@ -15,4 +15,5 @@ const { createUser, loginUser } = require("../controller/userController");
 userRoute.route("/createuser").post(createUserValidationRules, validate, createUser);
 userRoute.route("/loginuser").post(loginValidationRules,validate, loginUser);
 
+
 module.exports = userRoute;
