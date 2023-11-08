@@ -5,6 +5,7 @@ const cartDispatchContext = createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
+    /*For ADD = We add newly added data to old data which stored in the state */
     case "ADD":
       return [
         ...state,
@@ -18,8 +19,27 @@ const reducer = (state, action) => {
         },
       ];
 
+    case "REMOVE":
+      let curState = [...state];
+      curState.splice(action.index, 1);
+      return curState;
+
+    case "UPDATE":
+      let oldState = [...state];
+      oldState.find((food, index) => {
+        if (food.id === action.id) {
+          oldState[index] = {
+            ...food,
+            qty: parseInt(action.qty) + food.qty,
+            price: action.price + food.price,
+          };
+          return oldState;
+        }
+      });
+      return oldState;
+
     default:
-      console.log("Error in Reducer")
+      console.log("Error in Reducer");
   }
 };
 
