@@ -17,6 +17,29 @@ export default function Cart() {
     );
   }
 
+  const handleCheckOut = async () => {
+
+    const response = await fetch("http://localhost:5000/api/orderdata", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        orderedFood: data,
+        userEmail: localStorage.getItem("userEmail"),
+        orderedDate: new Date().toDateString(),
+      }),
+    });
+
+    const json = await response.json();
+
+    if (!json.success) {
+      await dispatch({ type: "DROP" });
+    } else {
+      console.log("Server side error");
+    }
+  };
+
   let totalPrice = data.reduce((total, food) => total + food.price, 0);
 
   return (
@@ -58,9 +81,7 @@ export default function Cart() {
         </table>
         <div>{<h1 className="fs-2">Total Price: ৳{totalPrice}/-</h1>}</div>
         <div>
-          <button
-            className="btn bg-success mt-5 " /* onClick={handleCheckOut} */
-          >
+          <button className="btn bg-success mt-5 " onClick={handleCheckOut}>
             {" "}
             Check Out{" "}
           </button>

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 //internal module
 const userModel = require("../models/userModel");
+const orderModel = require("../models/orderModel");
 
 const createUser = async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -32,7 +33,6 @@ const loginUser = async (req, res) => {
     } else if (!(await bcrypt.compare(password, userData.password))) {
       res.status(400).json({ success: false });
     } else {
-
       // create payload for jwt
       const userObject = {
         user: {
@@ -49,4 +49,39 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, loginUser };
+const checkOutFood = async (req, res) => {
+  let data = req.body.orderedFood;
+  await data.splice(0, 0, { orderedDate: req.body.orderedDate });
+
+  const userExist = await orderModel.findOne({ email: req.body.userEmail });
+
+  console.log(userExist);
+
+  if (userExist === null) {
+    /* need to add user */
+    console.log("I am new");
+    try {
+      await orderModel.create({ email: req.body.email, orderedFood: [data] });
+      res.status(200).json({ success: true });
+    } catch (error) {
+      res.json({ success: false });
+    }
+  } else {
+    /* need to update user */
+
+    try {
+      await orderModel
+        .findOneAndUpdate(
+          { email: req.body.email },
+          { $push: { orderedFood: [data] } }
+        )
+        .then(() => {
+          res.status(200).json({ success: true });
+        });
+    } catch (error) {
+      res.json({ success: false });
+    }
+  }
+};
+
+module.exports = { createUser, loginUser, checkOutFood };

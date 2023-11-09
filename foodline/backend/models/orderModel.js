@@ -7,7 +7,7 @@ const orderSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    ordered_food: {
+    orderedFood: {
       type: Array,
       required: true,
     },

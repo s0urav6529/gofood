@@ -9,7 +9,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const respnse = await fetch("http://localhost:5000/api/loginuser/", {
+    const response = await fetch("http://localhost:5000/api/loginuser/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,15 +20,16 @@ export default function Login() {
       }),
     });
 
-    const json = await respnse.json();
+    const json = await response.json();
 
     if (!json.success) {
       alert("Invalid Email or Password");
     }
     if (json.success) {
-      localStorage.setItem("userEmail", credentials.email);
+      localStorage.setItem("userEmail",  credentials.email);
       localStorage.setItem("authToken", json.authToken);
       console.log(localStorage.getItem("authToken"));
+      console.log(localStorage.getItem("userEmail"));
       navigate("/");
     }
   };
