@@ -55,24 +55,24 @@ const checkOutFood = async (req, res) => {
 
   const userExist = await orderModel.findOne({ email: req.body.userEmail });
 
-  console.log(userExist);
-
   if (userExist === null) {
     /* need to add user */
-    console.log("I am new");
+
     try {
-      await orderModel.create({ email: req.body.email, orderedFood: [data] });
+      await orderModel.create({
+        email: req.body.userEmail,
+        orderedFood: [data],
+      });
       res.status(200).json({ success: true });
     } catch (error) {
       res.json({ success: false });
     }
   } else {
     /* need to update user */
-
     try {
       await orderModel
         .findOneAndUpdate(
-          { email: req.body.email },
+          { email: req.body.userEmail },
           { $push: { orderedFood: [data] } }
         )
         .then(() => {

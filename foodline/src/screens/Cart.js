@@ -32,8 +32,8 @@ export default function Cart() {
     });
 
     const json = await response.json();
-
-    if (!json.success) {
+    
+    if (json.success) {
       await dispatch({ type: "DROP" });
     } else {
       console.log("Server side error");
