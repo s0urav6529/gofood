@@ -12,6 +12,7 @@ const {
   createUser,
   loginUser,
   checkOutFood,
+  myOrders,
 } = require("../controller/userController");
 
 //user route
@@ -20,5 +21,6 @@ userRoute
   .post(createUserValidationRules, validate, createUser);
 userRoute.route("/loginuser").post(loginValidationRules, validate, loginUser);
 userRoute.route("/orderdata").post(checkOutFood);
+userRoute.route("/myorders").post(myOrders);
 
 module.exports = userRoute;

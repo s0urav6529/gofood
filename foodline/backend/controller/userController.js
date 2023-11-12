@@ -84,4 +84,13 @@ const checkOutFood = async (req, res) => {
   }
 };
 
-module.exports = { createUser, loginUser, checkOutFood };
+const myOrders = async (req, res) => {
+  try {
+    const myData = await orderModel.findOne({ email: req.body.userEmail });
+    res.status(200).json({ orderData: myData.orderedFood });
+  } catch (error) {
+    res.status(500).json("Server Error", error.message);
+  }
+};
+
+module.exports = { createUser, loginUser, checkOutFood, myOrders };
