@@ -1,21 +1,7 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import Badge from "react-bootstrap/Badge";
-import Modal from "../Modal";
-import Cart from "../screens/Cart";
-import { useCart } from "./ContextReducer";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-export default function Navbar() {
-
-  let data = useCart();
-  const navigate = useNavigate();
-  const [cartView, setCartView] = useState(false);
-
-  const handleLogout = (e) => {
-    localStorage.removeItem("authToken");
-    navigate("/login");
-  };
-
+export default function AdminNavbar() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -40,13 +26,12 @@ export default function Navbar() {
                 <NavLink
                   className="nav-link active fs-5"
                   aria-current="page"
-                  to="/"
+                  to="/admin"
                 >
                   Home
                 </NavLink>
               </li>
-              {/* visualize user order page when a user is logged in */}
-              {localStorage.getItem("authToken") ? (
+              {localStorage.getItem("adminAuthToken") ? (
                 <li>
                   <NavLink
                     className="nav-link active fs-5"
@@ -60,39 +45,27 @@ export default function Navbar() {
                 ""
               )}
             </ul>
-            {!localStorage.getItem("authToken") ? (
+            {!localStorage.getItem("adminAuthToken") ? (
               <div className="d-flex">
-                <NavLink className="btn bg-white text-success mx-1" to="/login">
+                <NavLink
+                  className="btn bg-white text-success mx-1"
+                  to="/adminlogin"
+                >
                   Login
                 </NavLink>
                 <NavLink
                   className="btn bg-white text-success mx-1"
-                  to="/signup"
+                  to="/adminsignup"
                 >
                   Signup
                 </NavLink>
               </div>
             ) : (
               <div>
-                <div
-                  className="btn bg-white text-success mx-1"
-                  onClick={() => {
-                    setCartView(true);
-                  }}
-                >
-                  My Cart{" "}
-                  <Badge pill bg="danger">
-                    {data.length}
-                  </Badge>
-                </div>
-                {cartView ? (
-                  <Modal onClose={() => setCartView(false)}>
-                    <Cart />
-                  </Modal>
-                ) : null}
+                <div className="btn bg-white text-success mx-1">Add Food </div>
                 <div
                   className="btn bg-white text-danger mx-1"
-                  onClick={handleLogout}
+                  /* onClick={handleLogout} */
                 >
                   LogOut
                 </div>

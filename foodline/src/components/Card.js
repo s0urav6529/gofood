@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useCart, useDispatchCart } from "./contextReducer";
+import { useCart, useDispatchCart } from "./ContextReducer";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
