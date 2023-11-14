@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useCart, useDispatchCart } from "./contextReducer";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Card(props) {
   const priceOption = Object.keys(props.foodItems.option);
@@ -8,6 +11,8 @@ export default function Card(props) {
   const img = props.foodItems.img;
   const priceRef = useRef();
 
+  const navigate = useNavigate();
+
   let data = useCart();
   let dispatch = useDispatchCart();
 
@@ -15,6 +20,15 @@ export default function Card(props) {
   const [size, setSize] = useState("");
 
   const handleAddToCart = async () => {
+    const authToken = localStorage.getItem("authToken");
+
+    // if not logged in then need to login
+    if (authToken === null) {
+      toast.success("Need to login")
+      navigate("/login");
+      return;
+    }
+
     let food = [];
 
     for (const item of data) {
