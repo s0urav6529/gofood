@@ -30,7 +30,7 @@ export default function AdminLogin() {
     }
     if (json.success) {
       localStorage.setItem("adminEmail", credentials.email);
-      localStorage.setItem("adminAuthToken", json.authToken);
+      localStorage.setItem("adminAuthToken", json.adminAuthToken);
       navigate("/admin");
     }
   };

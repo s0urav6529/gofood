@@ -12,8 +12,9 @@ export default function Navbar() {
   const [cartView, setCartView] = useState(false);
 
   const handleLogout = (e) => {
+    localStorage.removeItem("userEmail");
     localStorage.removeItem("authToken");
-    navigate("/login");
+    navigate("/");
   };
 
   return (

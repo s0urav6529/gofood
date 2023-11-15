@@ -1,7 +1,16 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function AdminNavbar() {
+
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    localStorage.removeItem("adminEmail");
+    localStorage.removeItem("adminAuthToken");
+    navigate("/admin");
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -38,7 +47,7 @@ export default function AdminNavbar() {
                     aria-current="page"
                     to="/myorders"
                   >
-                    My Orders
+                    All Orders
                   </NavLink>
                 </li>
               ) : (
@@ -65,7 +74,7 @@ export default function AdminNavbar() {
                 <div className="btn bg-white text-success mx-1">Add Food </div>
                 <div
                   className="btn bg-white text-danger mx-1"
-                  /* onClick={handleLogout} */
+                  onClick={handleLogout}
                 >
                   LogOut
                 </div>
