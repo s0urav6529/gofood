@@ -12,6 +12,7 @@ import MyOrders from "./screens/MyOrders";
 import AdminLogin from "./screens/admin/AdminLogin";
 import AdminSingup from "./screens/admin/AdminSingup";
 import AdminHome from "./screens/admin/AdminHome";
+import AddFood from "./screens/admin/AddFood";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route exact path="/myorders" element={<MyOrders />} />
             <Route exact path="/adminlogin" element={<AdminLogin/>} />
             <Route exact path="/adminsignup" element={<AdminSingup/>} />
+            <Route exact path="/addfood" element={<AddFood/>} />
           </Routes>
         </div>
       </Router>

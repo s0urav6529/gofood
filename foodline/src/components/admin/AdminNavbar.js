@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function AdminNavbar() {
-
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
@@ -41,15 +40,26 @@ export default function AdminNavbar() {
                 </NavLink>
               </li>
               {localStorage.getItem("adminAuthToken") ? (
-                <li>
-                  <NavLink
-                    className="nav-link active fs-5"
-                    aria-current="page"
-                    to="/myorders"
-                  >
-                    All Orders
-                  </NavLink>
-                </li>
+                <div className="d-flex">
+                  <li>
+                    <NavLink
+                      className="nav-link active fs-5"
+                      aria-current="page"
+                      to="/allorders"
+                    >
+                      All Orders
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="nav-link active fs-5"
+                      aria-current="page"
+                      to="/alluser"
+                    >
+                      All Users
+                    </NavLink>
+                  </li>
+                </div>
               ) : (
                 ""
               )}
@@ -71,7 +81,12 @@ export default function AdminNavbar() {
               </div>
             ) : (
               <div>
-                <div className="btn bg-white text-success mx-1">Add Food </div>
+                <NavLink
+                  className="btn bg-white text-success mx-1"
+                  to="/addfood"
+                >
+                  Add Food
+                </NavLink>
                 <div
                   className="btn bg-white text-danger mx-1"
                   onClick={handleLogout}
