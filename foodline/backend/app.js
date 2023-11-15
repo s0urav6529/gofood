@@ -28,8 +28,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //use user Route
 app.use("/api", userRoute);
 app.use("/api", displayFoodRoute);
-app.use("/api", postdata);
-app.use("/api",adminRoute);
+app.use("/api", postdata); //for add item by admin
+app.use("/api", adminRoute);
 
 // server start
 app.listen(process.env.PORT, () => {

@@ -5,8 +5,8 @@ const userRoute = express.Router();
 //internal module
 const {
   validate,
-  createUserValidationRules,
   loginValidationRules,
+  createUserAndAdminValidationRules,
 } = require("../middleware/inputValidator");
 const {
   createUser,
@@ -18,7 +18,7 @@ const {
 //user route
 userRoute
   .route("/createuser")
-  .post(createUserValidationRules, validate, createUser);
+  .post(createUserAndAdminValidationRules, validate, createUser);
 userRoute.route("/loginuser").post(loginValidationRules, validate, loginUser);
 userRoute.route("/orderdata").post(checkOutFood);
 userRoute.route("/myorders").post(myOrders);

@@ -1,6 +1,6 @@
 const {body,validationResult} = require("express-validator")
 
-const createUserValidationRules = [
+const createUserAndAdminValidationRules = [
     body('name','Name length  should be minimum 5.').isLength({min:5}),
     body('email','Invalid email').isEmail(),
     body('password','Password length  should be minimum 5.').isLength({min:5}),
@@ -19,7 +19,7 @@ const validate = async(req, res,next)=>{
 };
 
 module.exports = {
-    createUserValidationRules,
+    createUserAndAdminValidationRules,
     loginValidationRules,
     validate
 }

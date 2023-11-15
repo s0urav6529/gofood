@@ -17,7 +17,7 @@ export default function AdminSingup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("", {
+    const response = await fetch("http://localhost:5000/api/adminSignup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,10 +32,11 @@ export default function AdminSingup() {
     const json = await response.json();
 
     if (!json.success) {
-      alert("Enter Valid Credentials");
+      if (json.message !== undefined) alert(json.message);
+      else alert("Enter valid credentials!");
     }
     if (json.success) {
-      navigate("/admin");
+      navigate("/adminlogin");
     }
   };
 
